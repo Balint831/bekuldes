@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1550771053 source:c:\users\bálint\desktop\halprog (c++)\bekuldes\integrate\main.cpp
+	<iostream>
+	<cmath>
+
