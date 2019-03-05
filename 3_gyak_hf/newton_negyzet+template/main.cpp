@@ -6,13 +6,14 @@ using namespace std;
 template<typename F, typename G, typename T, typename H>
 T newton(F f, G g, T x0, H limit){
     double a;
-    for (;;) {
+    for (int i = 0;i < 51; i++) {
         a = x0 - f(x0)/g(x0);
         if (fabs(x0-a)<limit){
             return a;
         }
         x0 = a;
     }
+    return a;
 }
 
 int main()
