@@ -11,9 +11,9 @@ double f(double x){
 //n>0, a>b
 double integrate(int n, double x0, double x1){
     if (x0>x1){std::swap(x0,x1);
-        std::cout << "\nA hatarok rosszul lettek megadva: x1<x0. Megcsereltem oket!\n" <<endl;}//megcserélés
+        std::cout << "\nA hatarok rosszul lettek megadva: x1<x0. Megcsereltem oket!\n" <<endl;}//megcserÃ©lÃ©s
     double h = (x1-x0)/(n+2);
-    double q;
+    double q = 0;
     for(int j=0; j <= n/2; j++){
         q += f(x0+(2*j+1)*h);
     }
