@@ -19,5 +19,5 @@ int main()
 {
     double a;
     a = newton([](double x){return x * x - 612.0; }, [](double x){return 2.0 * x; }, 10.0);
-    return a;
+    std::cout << a << endl;
 }
