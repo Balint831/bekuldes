@@ -8,14 +8,14 @@ T sq(T x){ return x*x; }
 
 double sqrt_newton(double num, double x0){
     double a;
-    for (;;) {
+    for (int i = 0; i < 51; i++) {
         a = x0 - ((sq(x0)-num)/(2*x0));
         if (fabs(x0-a)<10E-12){
             return a;
         }
         x0 = a;
     }
-
+    return a;
 }
 
 
