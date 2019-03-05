@@ -8,8 +8,10 @@ using namespace std;
 double f(double x){
     return cos(x)*std::exp(-1*std::pow(x,2));
 }
-
+//n>0, a>b
 double integrate(int n, double x0, double x1){
+    if (x0>x1){std::swap(x0,x1);
+        std::cout << "\nA hatarok rosszul lettek megadva: x1<x0. Megcsereltem oket!\n" <<endl;}//megcserélés
     double h = (x1-x0)/(n+2);
     double q;
     for(int j=0; j <= n/2; j++){
@@ -31,9 +33,10 @@ double integrate(int n, double x0, double x1){
 int main()
 {
     std::cout.precision(16);
-    double z = integrate(25000000,-1,3);
-    std::cout <<"Az eredmeny: " << z << "\n"
-        << "A WolframAlpha szerint: 1.34638795680345037669816 \nA ketto kulonbsege: "
+    double z = integrate(25000000,3,-1);
+
+    std::cout <<"Eredmenye: " << z << "\n"
+        << "integrate(cos(x)*e^(-x^2), -1,3) a WolframAlpha szerint: 1.34638795680345037669816 \nA ketto kulonbsege: "
         << fabs(z-1.34638795680345037669816) << endl;
 
     return 0;
