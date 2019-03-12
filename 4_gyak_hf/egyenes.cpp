@@ -53,8 +53,8 @@ int main(){
     std::cout <<"y = " << param[0] << " * x + " << param[1] <<std::endl;
     
     //Test case: straight line connecting 2 points
-    std::vector<double> u = {0, 1};
-    std::vector<double> v = {0, 2};
+    u = {0, 1};
+    v = {0, 2};
     param = parameters(u,v);
     std::cout <<"y = " << param[0] << " * x + " << param[1] <<std::endl;
 
