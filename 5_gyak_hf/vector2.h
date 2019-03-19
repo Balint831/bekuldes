@@ -1,7 +1,7 @@
 #include <cmath>
 #include <numeric>
 #include <iostream>
-
+ 
 template<typename T>
 T sq(T x)
 {
