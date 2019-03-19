@@ -1,6 +1,6 @@
 #include "vector2.h"
 #include <iostream>
-
+ 
 
 int main(int, char**) 
 {
