@@ -37,7 +37,7 @@ std::array<double, 2> parameters(std::vector<double> const& x, std::vector<doubl
     double m = mean_y - (b * mean_x);
     return {b,m};
 }
-
+ 
 int main(){
     //Test case: straight line connecting 2 points
     std::vector<double> u = {0, 1};
