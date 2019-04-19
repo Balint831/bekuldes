@@ -21,7 +21,7 @@ namespace detail
 
 inline auto add = [](auto const& x, auto const& y){ return x + y; };
 inline auto sub = [](auto const& x, auto const& y){ return x - y; };
-inline auto sq  = [](auto const& x){ return x*x; }; 
+inline auto sq  = [](auto const& x){ return x*x; };
 
 template<typename T>
 class Matrix
