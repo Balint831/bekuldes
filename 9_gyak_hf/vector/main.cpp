@@ -73,7 +73,7 @@ int main(int, char**)
     }
 
     test = {0.400818835, -0.916157337};
-    if (abs(length(test) - length(normalize(v))) > 1E-8)
+    if (length(test - normalize(v)) > 1E-8)
     {
         std::cout << "Error: vector normalization doesn't work properly.\n";
     }
@@ -81,7 +81,7 @@ int main(int, char**)
 
     v += {-0.2,5.5};
     test = {1.2, 2.3};
-    if (abs(length(v) - length(test)) > 1E-12)
+    if (length(v - test) > 1E-12)
     {
         std::cout << "Error: compound assignment += doesn't work properly.\n";
     }
@@ -89,7 +89,7 @@ int main(int, char**)
     v = {1.4,-3.2};
     v -= {-0.2,5.5};
     test = {1.6, -8.7};
-    if (abs(length(v) - length(test)) > 1E-12)
+    if (length(v - test) > 1E-12)
     {
         std::cout << "Error: compound assignment -= doesn't work properly.\n";
     }
@@ -97,7 +97,7 @@ int main(int, char**)
     v = {1.4,-3.2};
     v *= 3.2;
     test = {4.48, -10.24};
-    if (abs(length(v) - length(test)) > 1E-12)
+    if (length(v - test) > 1E-12)
     {
         std::cout << "Error: compound assignment *= doesn't work properly.\n";
     }
@@ -105,7 +105,7 @@ int main(int, char**)
     v = {1.4,-3.2};
     v /= 3.2;
     test = {0.4375, -1};
-    if (abs(length(v) - length(test)) > 1E-12)
+    if (length(v - test) > 1E-12)
     {
         std::cout << "Error: compound assignment /= doesn't work properly.\n";
     }

@@ -70,5 +70,13 @@ int main()
         std::cout << "Error: matrix scalar division doesn't work properly.\n";
     }
 
+    C = A;
+    C_test.data = { -12.3, 4.3, 3.7,
+                    -5.5, -7.2,  3.7,
+                    7.3, 11.7, -14.1};
+    if (!compare(C,C_test,1E-8))
+    {
+        std::cout << "Error: addition doesn't work properly.\n ";
+    }
     return 0;
 }

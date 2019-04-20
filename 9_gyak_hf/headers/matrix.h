@@ -32,19 +32,54 @@ class Matrix
         std::vector<T> data;
         
         Matrix(int n, std::vector<T> const& x): N(n), data(x)
-        {}        
+        {}
+
+        Matrix( Matrix const& ) = default;
+        Matrix( Matrix && ) = default;
         
+        int const& getN()
+        {
+            return N;
+        }
+
+        std::vector<T> const& getdata()
+        {
+            return data;
+        }
+
+        int const& getlen()
+        {
+            return static_cast<int>(data.size());
+        }
+
+        /*Matrix<T>& operator+= (Matrix<T> const& A)
+	    {
+		    std::vector<T>& cpy = A.getdata();
+            detail::transform_vector2(*this, cpy, *this, add);
+		    return *this;
+        }*/
+
+        /*Matrix<T>& operator-= (Matrix<T> const& A)
+	    {
+		    std::vector<T>& cpy = A.getdata();
+            detail::transform_vector2(*this, cpy, *this, sub);
+		    return *this;
+        }
+
+        Matrix<T>& operator*= (T const& scl)
+	    {
+            
+		    detail::transform_vector1(*this, *this, [=](T const& x){ return x * scl;} );
+		    return *this;
+        }*/
+
+
+
     T&      operator ()(int i, int j)
     { return data[N * i + j];}
 
     T const& operator ()(int i, int j) const
     { return data[N * i + j];}
-
-    /*std::vector<T>&       operator ()(int i)
-    { return std::slice(data, N * i, N * (i+1) - 1);}
-
-    std::vector<T> const& operator ()(int i) const
-    { return data[N * i ];}*/
 };
 
 
@@ -66,9 +101,13 @@ std::ostream& operator<<( std::ostream& o, Matrix<T> const& A )
 template<typename T>
 std::ostream& operator<<( std::ostream& o, std::vector<T> const& A )
 {
-    for (int i = 0; i < A.size(); i++)
-    {
-        o << A[i] << " ";
+    
+    for (int i = 0; i < A.N; i++)
+    {   for (int j = 0; j < A.N; j++)
+        {
+            o << A(i,j) << " ";
+        }
+        o << "\n";
     }
     o << "\n";
     return o;   
@@ -77,11 +116,11 @@ std::ostream& operator<<( std::ostream& o, std::vector<T> const& A )
 template<typename T>
 std::istream& operator>>( std::istream& i, Matrix<T> A )
 {
-    for (int i = 0; i < A.N; i++)
+    for (int k = 0; k < A.N; k++)
     {
         for (int j = 0; j < A.N; j++)
         {
-            i >> A(i,j);
+            i >> A(k,j);
         }
         
     }
