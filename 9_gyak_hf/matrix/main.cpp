@@ -21,7 +21,7 @@ int main()
     Matrix<double> C_test(3,test);
 
     Matrix<double> C = A + B;
-    if (!compare(C,C_test,1E-8))
+    /*if (!compare(C,C_test,1E-8))
     {
         std::cout << "Error: addition doesn't work properly.\n ";
     }
@@ -34,7 +34,7 @@ int main()
     if (!compare(C,C_test,1E-8))
     {
         std::cout << "Error: subtraction doesn't work properly.\n ";
-    }
+    }*/
 /*
     C_test.data = { -33.52, -4.35, 19.31,
                     -26.43, -19.2, 16.62,

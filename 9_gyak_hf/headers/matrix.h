@@ -36,7 +36,6 @@ class Matrix
 
         Matrix( Matrix const& ) = default;
         Matrix( Matrix && ) = default;
-        ~Matrix();
 
         Matrix<T>& operator=( Matrix <T>&& mv) = default;
         Matrix<T>& operator=( Matrix<T> const& cpy) = default;
