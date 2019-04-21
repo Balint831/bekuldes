@@ -21,15 +21,14 @@ int main()
     Matrix<double> C_test(3,test);
 
     Matrix<double> C = A + B;
-    /*if (!compare(C,C_test,1E-8))
-    {
-        std::cout << "Error: addition doesn't work properly.\n ";
-    }
+    //C = std::move(A) + B;
+    std::cout << C;
+    //if (!compare(C,C_test,1E-8)){ std::cout << "Error: addition doesn't work properly.\n ";}
 
-    std::vector<double> q ={-12.3, 4.3, 3.7,
+    /*std::vector<double> q ={-12.3, 4.3, 3.7,
                             -5.5, -7.2,  3.7,
                              7.3, 11.7, -14.1}; 
-    //Matrix<double> C_test(3,q);
+    Matrix<double> C_test(3,q);
     C = A - B;
     if (!compare(C,C_test,1E-8))
     {
@@ -43,8 +42,9 @@ int main()
     if (!compare(C,C_test,1E-8))
     {
         std::cout << "Error: matrix multiplication doesn't work properly.\n ";
-    }
+    }*/
     C = std::move(A) * B;
+    std::cout << C;/*
 
     if (!compare(C,C_test,1E-8))
     {

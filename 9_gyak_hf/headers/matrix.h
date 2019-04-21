@@ -31,8 +31,12 @@ class Matrix
         int N;
         std::vector<T> data;
     public:
-        Matrix(int n, std::vector<T> const& x): N(n), data(x)
-        {}
+        Matrix(int n, std::vector<T>& x)
+        {
+            N = n;
+            x.resize(sq(n));
+            data = x;
+        }
 
         Matrix( Matrix const& ) = default;
         Matrix( Matrix && ) = default;
@@ -50,10 +54,17 @@ class Matrix
             return data;
         }
 
+        std::vector<T>& moddata()
+        {
+            return data;
+        }
+
         int getlen()
         {
             return static_cast<int>(data.size());
         }
+
+        
 
         /*Matrix<T>& operator+= (Matrix<T> const& A)
 	    {
@@ -141,8 +152,8 @@ Matrix<T> operator+( Matrix<T> const& A, Matrix<T> const& B)
         exit(-1);
     }
     std::vector<T> v;
-    detail::transform_vector2(A.getdata(), B.getdata(), v, add);
     Matrix<T> C(A.getN(), v);
+    detail::transform_vector2(A.getdata(), B.getdata(), C.moddata(), add);
     return C;
 }
 
@@ -154,7 +165,7 @@ Matrix<T>&& operator+( Matrix<T>&& A, Matrix<T> const& B)
         std::cout << "Error: the matrices at hand aren't compatible from the perspective of addition.\n";
         exit(-1);
     }
-    detail::transform_vector2(A.getdata(), B.getdata(), A.getdata(), add);
+    detail::transform_vector2(A.getdata(), B.getdata(), A.moddata(), add);
     return std::move(A);
 }
 
@@ -166,9 +177,10 @@ Matrix<T> operator-( Matrix<T> const& A, Matrix<T> const& B)
         std::cout << "Error: the matrices at hand aren't compatible from the perspective of subtraction.\n";
         exit(-1);
     }
-    std::vector<T> v;
-    detail::transform_vector2(A.getdata(), B.getdata(), v, sub);
+     std::vector<T> v;
     Matrix<T> C(A.getN(), v);
+    detail::transform_vector2(A.getdata(), B.getdata(), C.moddata(), sub);
+    
     return C;
 }
 
@@ -180,7 +192,7 @@ Matrix<T>&& operator-( Matrix<T>&& A, Matrix<T> const& B)
         std::cout << "Error: the matrices at hand aren't compatible from the perspective of subtraction.\n";
         exit(-1);
     }
-    detail::transform_vector2(A.getdata(), B.getdata(), A.getdata(), sub);
+   detail::transform_vector2(A.getdata(), B.getdata(), A.moddata(), sub);
     return std::move(A);
 }
 
@@ -221,8 +233,8 @@ template<typename T,typename F>
 Matrix<T> operator*( Matrix<T> const& A, F q)
 {   
     std::vector<T> v ( A.getN() * A.getN() );
-    Matrix<T> C(A.getN(), v);
     detail::transform_vector1(A.getdata(), v, [=](T const& x){ return x * q; });
+    Matrix<T> C(A.getN(), v);
     return C;
 }
 
@@ -237,8 +249,8 @@ template<typename T,typename F>
 Matrix<T> operator*(  F q, Matrix<T> const& A)
 {   
     std::vector<T> v ( A.getN() * A.getN() );
-    Matrix<T> C(A.getN(), v);
     detail::transform_vector1(A.getdata(), v, [=](T const& x){ return q * x; });
+    Matrix<T> C(A.getN(), v);
     return C;
 }
 
@@ -253,8 +265,8 @@ template<typename T,typename F>
 Matrix<T> operator/( Matrix<T> const& A,  F q)
 {   
     std::vector<T> v ( A.getN() * A.getN() );
+    detail::transform_vector1(A.getdata(), v, [=](T const& x){ return x / q; });
     Matrix<T> C(A.getN(), v);
-    detail::transform_vector1(A.getdata(), C.getdata(), [=](T const& x){ return x / q; });
     return C;
 }
 
@@ -274,7 +286,6 @@ Matrix<T> operator*( Matrix<T> const& A, Matrix<T> const& B)
         exit(-1);
     }
     std::vector<T> v ( A.getN() * A.getN() );
-    Matrix<T> C(A.getN(), v);
     for (int i = 0; i < A.getN(); i++)
     {   
         for (int j = 0; j < B.getN(); j++)
@@ -284,9 +295,10 @@ Matrix<T> operator*( Matrix<T> const& A, Matrix<T> const& B)
             {
                 sum += A(i,k) * B(k,j);
             }
-            C(i,j) = sum;
+            v[i * A.getN() + j] = sum;
         }
     }
+    Matrix<T> C(A.getN(), v);
     return C;
 }
 
@@ -311,7 +323,7 @@ Matrix<T>&& operator*( Matrix<T>&& A, Matrix<T> const& B)
             }
             v[j] = sum;
         }
-        std::copy(v.begin(), v.end(), A.getdata().begin()+(A.getN() * i));
+        std::copy(v.begin(), v.end(), A.moddata().begin()+(A.getN() * i));
     }
     return std::move(A);
 }
@@ -325,7 +337,6 @@ Matrix<T>&& operator*( Matrix<T>& A, Matrix<T> const&& B)
         exit(-1);
     }
     std::vector<T> v ( A.getN() );
-    
     for (int i = 0; i < A.getN(); i++)
     {   
         for (int j = 0; j < B.getN(); j++)
