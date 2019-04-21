@@ -25,15 +25,17 @@ int main()
     {
         std::cout << "Error: addition doesn't work properly.\n ";
     }
-    C_test.data = { -12.3, 4.3, 3.7,
-                    -5.5, -7.2,  3.7,
-                    7.3, 11.7, -14.1};
+
+    std::vector<double> q ={-12.3, 4.3, 3.7,
+                            -5.5, -7.2,  3.7,
+                             7.3, 11.7, -14.1}; 
+    //Matrix<double> C_test(3,q);
     C = A - B;
     if (!compare(C,C_test,1E-8))
     {
         std::cout << "Error: subtraction doesn't work properly.\n ";
     }
-
+/*
     C_test.data = { -33.52, -4.35, 19.31,
                     -26.43, -19.2, 16.62,
                     81.18, 57.58, -60.73};
@@ -70,13 +72,14 @@ int main()
         std::cout << "Error: matrix scalar division doesn't work properly.\n";
     }
 
-    C = A;
+    /*C = A;
+    C += B;
     C_test.data = { -12.3, 4.3, 3.7,
                     -5.5, -7.2,  3.7,
                     7.3, 11.7, -14.1};
     if (!compare(C,C_test,1E-8))
     {
-        std::cout << "Error: addition doesn't work properly.\n ";
-    }
+        std::cout << "Error: compound addition doesn't work properly.\n ";
+    }*/
     return 0;
 }
